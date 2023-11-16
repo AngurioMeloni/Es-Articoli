@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Es_Articoli
 {
-    internal class ArticoloAlimentareFresco
+    class ArticoloAlimentareFresco : ArticoloAlimentare
     {
+        public int GiorniConsumoDopoAp { get; set; }
+        public ArticoloAlimentareFresco(string codice,string descrizione,double prezzoUnitario, int annoScadenza,int giorniConsumoDopoAp) : base(codice,descrizione, prezzoUnitario,annoScadenza) 
+        { 
+
+        }
     }
 }
