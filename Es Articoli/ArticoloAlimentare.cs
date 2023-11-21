@@ -13,13 +13,14 @@ namespace Es_Articoli
         {
             AnnoScadenza= annoScadenza;
         }
-        public override void Sconta()
+        public override double Sconta(bool CartaFedeltà)
         {
-            base.Sconta();  //sconto base della carta fedeltà
+            double sconto = base.Sconta(CartaFedeltà);  //sconto base della carta fedeltà
             if(AnnoScadenza == DateTime.Now.Year)   //sconto aggiuntivo per l'anno di scadenza
             {
-                PrezzoUnitario *= 0.8; // sconto del 20%
+                sconto += PrezzoUnitario * 0.2; // sconto del 20%
             }
+            return sconto;
         }
     }
 }

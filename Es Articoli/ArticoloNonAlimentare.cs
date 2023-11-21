@@ -16,14 +16,15 @@ namespace Es_Articoli
             Materiale = materiale;
             Riciclabile= riclabile;
         }
-        public override void Sconta()
+        public override double Sconta(bool CartaFedeltà)
         {
-            base.Sconta(); // sconto base della carta fedeltà
+            double sconto = base.Sconta(CartaFedeltà); // sconto base della carta fedeltà
 
             if(Riciclabile) //sconto aggiuntivo nel caso il materiale sia riciclabile
             {
-                PrezzoUnitario *= 0.9; // sconto del 10% 
+                sconto += PrezzoUnitario * 0.1; // sconto del 10% 
             }
+            return sconto;
         }
 
     }
