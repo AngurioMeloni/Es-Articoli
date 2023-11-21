@@ -13,12 +13,14 @@ namespace Es_Articoli
         {
             GiorniConsumoDopoAp = giorniConsumoDopoAp;
         }
-        public override void Sconta()
+        public override double Sconta(bool CartaFedeltà)
         {
-            base.Sconta();//sconti in base alla carta fedeltà e all'anno di scadenza
-            double scontoGiorni = GiorniConsumoDopoAp * 0.02; // 2% per ogni giorno
-            double scontoTotale = 1 - scontoGiorni; //calcolo dellosconto totale
-            PrezzoUnitario *= scontoTotale; 
+            double sconto = base.Sconta(CartaFedeltà);//sconti in base alla carta fedeltà e all'anno di scadenza
+            if(GiorniConsumoDopoAp >= 1 && GiorniConsumoDopoAp <= 5)
+            {
+                sconto += PrezzoUnitario * (GiorniConsumoDopoAp * 0.02);
+            }
+            return sconto;
         }
     }
 }

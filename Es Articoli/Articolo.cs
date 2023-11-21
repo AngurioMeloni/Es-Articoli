@@ -19,12 +19,19 @@ namespace Es_Articoli
             Descrizione = descrizione;
             PrezzoUnitario= prezzoUnitario;      
         }
-        public virtual void Sconta()
+        public virtual double Sconta(bool CartaFedeltà)
         {
+            double sconto = 0;
             if(CartaFedeltà)
             {
-                PrezzoUnitario *= 0.95; //riduzione del 5% con la carta fedeltà
+                sconto = PrezzoUnitario * 0.05; //riduzione del 5% con la carta fedeltà
             }
+            return sconto;
+        }
+        public virtual double prezzoScontato(bool CartaFedeltà)
+        {
+            double sconto = Sconta(CartaFedeltà);
+            return PrezzoUnitario - sconto;
         }
     }
 }
