@@ -11,7 +11,7 @@ namespace Es_Articoli
         private static int _codice;
         private string _descrizione;
         private double _prezzoUnitario;
-        private bool _cartaFedeltaeltà;
+        private bool _cartaFedelta;
 
         public int Codice
         {
@@ -34,7 +34,7 @@ namespace Es_Articoli
         public bool CartaFedelta
         {
             get { return _cartaFedelta; }
-            set { _cartaFedeltaeltà = value; }
+            set { _cartaFedelta = value; }
         }
   
 
@@ -68,7 +68,7 @@ namespace Es_Articoli
 
             Articolo other = (Articolo)obj;
 
-            if (Codice == other.Codice && Descrizione == other.Descrizione && PrezzoUnitario == other.PrezzoUnitario && cartaFedelta == other.cartaFedelta)
+            if (Codice == other.Codice && Descrizione == other.Descrizione && PrezzoUnitario == other.PrezzoUnitario && CartaFedelta == other.CartaFedelta)
             {
                 return true;
             }
@@ -77,13 +77,13 @@ namespace Es_Articoli
         }
         public override string ToString()
         {
-            string s = cartaFedelta ? "Abbonato con carta fedeltà" : "Non abbonato";
+            string s = CartaFedelta ? "Abbonato con carta fedeltà" : "Non abbonato";
             return $"Codice: {Codice}; Descrizione: {Descrizione}; Prezzo Unitario: {PrezzoUnitario}; Carta Fedeltà: {s}";
         }
 
         public virtual double Sconta()
         {
-            if(cartaFedelta)
+            if(CartaFedelta)
             {
                 return PrezzoUnitario - PrezzoUnitario * 0.05; //riduzione del 5% con la carta fedeltà
             }
