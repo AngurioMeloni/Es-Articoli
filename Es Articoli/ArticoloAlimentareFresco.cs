@@ -6,21 +6,41 @@ using System.Threading.Tasks;
 
 namespace Es_Articoli
 {
-    class ArticoloAlimentareFresco : ArticoloAlimentare
+    public class ArticoloAlimentareFresco : ArticoloAlimentare
     {
-        public int GiorniConsumoDopoAp { get; set; }
-        public ArticoloAlimentareFresco(string codice,string descrizione,double prezzoUnitario, int annoScadenza,int giorniConsumoDopoAp) : base(codice,descrizione, prezzoUnitario,annoScadenza) 
+        private int _consumabile;
+
+        public int Consumabile
         {
-            GiorniConsumoDopoAp = giorniConsumoDopoAp;
+            get { return _consumabile; }
+            set { _consumabile = value; }
         }
-        public override double Sconta(bool CartaFedeltà)
+
+        public ArticoloAlimentareFresco() : base()
         {
-            double sconto = base.Sconta(CartaFedeltà);//sconti in base alla carta fedeltà e all'anno di scadenza
-            if(GiorniConsumoDopoAp >= 1 && GiorniConsumoDopoAp <= 5)
+            Consumabile = 3;
+        }
+
+        public ArticoloAlimentareFresco(int codice, int consumabile, int anno, string descrizione, double prezzoUnit, bool cartaFedelta) : base(codice, descrizione, prezzoUnit, cartaFedelta)
+        {
+            Consumabile = _consumabile;
+        }
+
+        public ArticoloAlimentareFresco(ArticoloAlimentareFresco vecchioArticoloAlimentareFresco, ArticoloAlimentare vecchioArticoloAlimentare, Articolo vecchioArticolo) : base(vecchioArticoloAlimentare, vecchioArticolo)
+        {
+            Consumabile = vecchioArticoloAlimentareFresco.Consumabile;
+        }
+        public override double Sconta()
+        {
+            double percentuale = 10F;
+            double sconto = base.Sconta();
+
+            for (int i = 1; i < 6 && i < Consumabile; i++)
             {
-                sconto += PrezzoUnitario * (GiorniConsumoDopoAp * 0.02);
+                percentuale -= 2F;
             }
-            return sconto;
+
+            return sconto - sconto * percentuale / 100;
         }
     }
 }
